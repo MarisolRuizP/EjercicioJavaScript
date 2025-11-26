@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Salario</h1>
+
+        <label>Horas trabajadas en la semana:</label>
+        <input type="number" id="horas" value="45" min="0">
+
+        <label>Pago por hora ($):</label>
+        <input type="number" id="pago" value="150" min="0">
+
+        <button onclick="calcularSalario()">Calcular Salario</button>
+
+        <div id="resultado">
+            <p><strong>Horas normales:</strong> <span id="horasNormales"></span></p>
+            <p><strong>Horas extra:</strong> <span id="horasExtra"></span></p>
+            <p><strong>Pago horas normales:</strong> $<span id="pagoNormales"></span></p>
+            <p><strong>Pago horas extra:</strong> $<span id="pagoExtras"></span></p>
+            <p class="total">TOTAL A PAGAR: $<span id="total"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularSalario() {
+            const horasTrabajadas = parseFloat(document.getElementById('horas').value);
+            const pagoPorHora = parseFloat(document.getElementById('pago').value);
+
+            let horasNormales = 0;
+            let horasExtra = 0;
+
+            if (horasTrabajadas <= 40) {
+                horasNormales = horasTrabajadas;
+                horasExtra = 0;
+            } else {
+                horasNormales = 40;
+                horasExtra = horasTrabajadas - 40;
+            }
+
+            const pagoHorasNormales = horasNormales * pagoPorHora;
+            const pagoHorasExtra = horasExtra * (pagoPorHora * 1.5);
+            const totalAPagar = pagoHorasNormales + pagoHorasExtra;
+
+            document.getElementById('horasNormales').textContent = horasNormales + ' horas';
+            document.getElementById('horasExtra').textContent = horasExtra + ' horas';
+            document.getElementById('pagoNormales').textContent = pagoHorasNormales.toFixed(2);
+            document.getElementById('pagoExtras').textContent = pagoHorasExtra.toFixed(2);
+            document.getElementById('total').textContent = totalAPagar.toFixed(2);
+
+            document.getElementById('resultado').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
